@@ -21,5 +21,8 @@ Backend API for coaches to manage students and posts.
 
 ## Installation
 
+```bash
 npm install
 npm run dev
+
+```
