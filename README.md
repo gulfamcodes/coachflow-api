@@ -56,3 +56,9 @@ POST /api/posts
 PATCH /api/posts/:id
 
 DELETE /api/posts/:id
+
+Posts allow coaches to create and manage learning updates, announcements, or content related to their coaching workflow.
+
+## Project Status
+
+CoachFlow API v1 is complete locally. Deployment is planned next.
