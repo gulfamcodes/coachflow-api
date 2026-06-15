@@ -6,6 +6,7 @@ import {
   createPost,
   getPosts,
   deletePost,
+  updatePost,
 } from '../controllers/postController.js';
 
 const router = express.Router();
@@ -14,6 +15,6 @@ router
   .route('/')
   .post(protect, upload.single('image'), createPost)
   .get(protect, getPosts);
-router.route('/:id').delete(protect, deletePost);
+router.route('/:id').patch(protect, updatePost).delete(protect, deletePost);
 
 export default router;

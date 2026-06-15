@@ -26,6 +26,26 @@ export const getPosts = async (req, res) => {
   res.json(posts);
 };
 
+export const updatePost = async (req, res) => {
+  const post = await Post.findById(req.params.id);
+  if (!post) {
+    res.status(404).json({ message: 'Post not found' });
+    throw new ApiError(404, 'Post not found');
+  }
+
+  if (post.coach.toString() !== req.user._id.toString()) {
+    throw new ApiError(401, 'Not authorized');
+  }
+  // const { title, image } = req.body;
+
+  if (req.body.title) post.title = req.body.title;
+  if (req.body.post) post.image = req.body.image;
+
+  const updatedPost = await post.save();
+
+  res.status(200).json(updatedPost);
+};
+
 export const deletePost = async (req, res) => {
   const post = await Post.findById(req.params.id);
 
