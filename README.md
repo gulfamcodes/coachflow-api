@@ -4,12 +4,25 @@ Backend API for coaches to manage students and posts with JWT authentication and
 
 ## Features
 
-- JWT Authentication
-- Protected Routes
 - Student CRUD
 - Post CRUD
-- Ownership Protection
 - MongoDB Integration
+
+## Security Features
+
+- JWT Authentication
+- Protected Routes
+- Resource Ownership Protection
+- Password Hashing
+
+## Tech Stack
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcryptjs
 
 ## Installation
 
