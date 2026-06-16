@@ -1,12 +1,9 @@
-# CoachFlow API
-
-Backend API for coaches to manage students and posts with JWT authentication and ownership protection.
-
 ## Features
 
 - Student CRUD
 - Post CRUD
 - MongoDB Integration
+  Cl
 
 ## Security Features
 
@@ -14,15 +11,6 @@ Backend API for coaches to manage students and posts with JWT authentication and
 - Protected Routes
 - Resource Ownership Protection
 - Password Hashing
-
-## Tech Stack
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- bcryptjs
 
 ## Installation
 
