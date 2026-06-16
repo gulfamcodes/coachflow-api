@@ -23,7 +23,7 @@ export const updateStudent = asyncHandler(async (req, res) => {
   }
 
   if (req.body.name) student.name = req.body.name;
-  if (req.body.email) student.name = req.boyd.email;
+  if (req.body.email) student.email = req.body.email;
 
   const updatedStudent = await student.save();
   res.status(200).json(updatedStudent);

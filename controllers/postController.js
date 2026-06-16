@@ -36,10 +36,9 @@ export const updatePost = async (req, res) => {
   if (post.coach.toString() !== req.user._id.toString()) {
     throw new ApiError(401, 'Not authorized');
   }
-  // const { title, image } = req.body;
+  const { title } = req.body;
 
   if (req.body.title) post.title = req.body.title;
-  if (req.body.post) post.image = req.body.image;
 
   const updatedPost = await post.save();
 
