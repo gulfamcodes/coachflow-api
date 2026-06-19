@@ -16,10 +16,10 @@ export const getStudents = asyncHandler(async (req, res) => {
 export const updateStudent = asyncHandler(async (req, res) => {
   const student = await Student.findById(req.params.id);
   if (!student) {
-    throw new ApiError(400, 'Not authorized');
+    throw new ApiError(404, 'Student not found');
   }
   if (student.coach.toString() !== req.user._id.toString()) {
-    throw new ApiError(400, 'Not authorized');
+    throw new ApiError(403, 'Not authorized');
   }
 
   if (req.body.name) student.name = req.body.name;
@@ -35,7 +35,7 @@ export const deleteStudent = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'Student not found');
   }
   if (student.coach.toString() !== req.user._id.toString()) {
-    throw new ApiError(400, 'Not authorized');
+    throw new ApiError(403, 'Not authorized');
   }
   await student.deleteOne();
   res.json({ message: 'Student removed' });

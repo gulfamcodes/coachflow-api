@@ -3,11 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ApiError from '../utils/ApiError.js';
+import asyncHandler from '../middleware/asyncHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const createPost = async (req, res) => {
+export const createPost = asyncHandler(async (req, res) => {
   const { title } = req.body;
   if (!req.file) {
     throw new ApiError(400, 'Image is required');
@@ -19,22 +20,21 @@ export const createPost = async (req, res) => {
   });
 
   res.status(201).json(post);
-};
+});
 
-export const getPosts = async (req, res) => {
+export const getPosts = asyncHandler(async (req, res) => {
   const posts = await Post.find({ coach: req.user._id });
   res.json(posts);
-};
+});
 
-export const updatePost = async (req, res) => {
+export const updatePost = asyncHandler(async (req, res) => {
   const post = await Post.findById(req.params.id);
   if (!post) {
-    res.status(404).json({ message: 'Post not found' });
     throw new ApiError(404, 'Post not found');
   }
 
   if (post.coach.toString() !== req.user._id.toString()) {
-    throw new ApiError(401, 'Not authorized');
+    throw new ApiError(403, 'Not authorized');
   }
   const { title } = req.body;
 
@@ -43,18 +43,17 @@ export const updatePost = async (req, res) => {
   const updatedPost = await post.save();
 
   res.status(200).json(updatedPost);
-};
+});
 
-export const deletePost = async (req, res) => {
+export const deletePost = asyncHandler(async (req, res) => {
   const post = await Post.findById(req.params.id);
 
   if (!post) {
-    res.status(404).json({ message: 'Post not found' });
     throw new ApiError(404, 'Post not found');
   }
 
   if (post.coach.toString() !== req.user._id.toString()) {
-    throw new ApiError(401, 'Not authorized');
+    throw new ApiError(403, 'Not authorized');
   }
 
   const imagePath = path.join(__dirname, '..', post.image);
@@ -70,4 +69,4 @@ export const deletePost = async (req, res) => {
   res.status(200).json({
     message: 'Post deleted',
   });
-};
+});
