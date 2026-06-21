@@ -21,10 +21,16 @@ export const registerUser = async (req, res, next) => {
   const user = await User.create({ name, email, password: hashedPassword });
 
   // 4. Resposne
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: '1d',
+  });
+
+  // 4. Send respons
   res.status(201).json({
     id: user._id,
     name: user.name,
     email: user.email,
+    token,
   });
 };
 
